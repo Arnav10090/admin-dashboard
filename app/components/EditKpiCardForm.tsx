@@ -65,8 +65,9 @@ const EditKpiCardForm: React.FC<EditKpiCardFormProps> = ({ card, onCardUpdated, 
       
       onCardUpdated(form.name);
       onClose();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -79,7 +80,7 @@ const EditKpiCardForm: React.FC<EditKpiCardFormProps> = ({ card, onCardUpdated, 
         <button 
           type="button" 
           onClick={onClose}
-          className="text-gray-400 hover:text-gray-600"
+          className="text-gray-400 hover:text-gray-600 cursor-pointer"
           disabled={loading}
         >
           ✕
@@ -181,7 +182,7 @@ const EditKpiCardForm: React.FC<EditKpiCardFormProps> = ({ card, onCardUpdated, 
         <button
           type="submit"
           disabled={loading}
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 flex items-center"
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed flex justify-center items-center gap-2 cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
         >
           {loading ? 'Saving...' : 'Save Changes'}
           {loading && (

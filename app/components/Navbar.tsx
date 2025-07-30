@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
+
 import { FiMenu, FiBell, FiSearch, FiSettings, FiLogOut, FiUser, FiHelpCircle, FiGrid } from "react-icons/fi";
 
 export default function Navbar() {
@@ -24,7 +24,7 @@ export default function Navbar() {
             {/* Left section - Logo and navigation */}
             <div className="flex items-center">
               <button 
-                className="md:hidden text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white"
+                className="md:hidden text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 <FiMenu className="h-6 w-6" />
@@ -78,13 +78,13 @@ export default function Navbar() {
               </div>
 
               {/* Notifications */}
-              <button className="p-2 rounded-full text-blue-100 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white relative">
+              <button className="p-2 rounded-full text-blue-100 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white relative cursor-pointer">
                 <FiBell className="h-5 w-5" />
                 <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-blue-600"></span>
               </button>
 
               {/* Settings */}
-              <button className="p-2 rounded-full text-blue-100 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white">
+              <button className="p-2 rounded-full text-blue-100 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer">
                 <FiSettings className="h-5 w-5" />
               </button>
 
@@ -92,7 +92,7 @@ export default function Navbar() {
               <div className="relative ml-3">
                 <div>
                   <button 
-                    className="flex items-center max-w-xs rounded-full bg-blue-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-800"
+                    className="flex items-center max-w-xs rounded-full bg-blue-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-800 cursor-pointer"
                     id="user-menu"
                     aria-expanded="false"
                     aria-haspopup="true"
@@ -145,7 +145,7 @@ export default function Navbar() {
                       </a>
                       <div className="border-t border-gray-100"></div>
                       <button
-                        className="w-full text-left flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                        className="w-full text-left flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100 cursor-pointer"
                         role="menuitem"
                       >
                         <FiLogOut className="mr-3 h-5 w-5 text-red-400" />
@@ -167,7 +167,7 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-600"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-600 cursor-pointer"
                 >
                   {item.name}
                 </a>
@@ -180,7 +180,7 @@ export default function Navbar() {
       {/* Overlay when mobile menu is open */}
       {isMenuOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden cursor-pointer"
           onClick={() => setIsMenuOpen(false)}
         ></div>
       )}

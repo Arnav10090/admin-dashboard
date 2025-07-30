@@ -14,6 +14,7 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  DragEndEvent
 } from '@dnd-kit/core';
 import {
   arrayMove,
@@ -68,8 +69,7 @@ function SortableKpiCard({ card, ...props }: { card: KpiCardData } & React.Compo
     zIndex: isDragging ? 100 : 1,
   };
   
-  // Filter out role from attributes to prevent button-like behavior
-  const { role, ...filteredAttributes } = attributes;
+  const { ...filteredAttributes } = attributes;
   
   return (
     <div
@@ -100,7 +100,7 @@ function SortableKpiCard({ card, ...props }: { card: KpiCardData } & React.Compo
   );
 }
 
-export const KpiGrid: React.FC = () => {
+const KpiGrid = (): React.ReactElement => {
   const [cards, setCards] = useState<KpiCardData[]>([]);
   const [showAdd, setShowAdd] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -166,20 +166,21 @@ export const KpiGrid: React.FC = () => {
 
   // DnD Kit setup
   const sensors = useSensors(useSensor(PointerSensor));
-  const cardIds = cards.sort((a, b) => a.order - b.order).map(card => card.id);
-
-  const handleDragEnd = async (event: any) => {
+  const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
-    if (active.id !== over?.id) {
-      const oldIndex = cards.findIndex(card => card.id === active.id);
-      const newIndex = cards.findIndex(card => card.id === over.id);
+    if (!over || active.id === over.id) return;
+
+    const activeId = active.id.toString();
+    const overId = over.id.toString();
+    
+    const oldIndex = cards.findIndex(card => card.id === activeId);
+    const newIndex = cards.findIndex(card => card.id === overId);
       const newCards = arrayMove(cards, oldIndex, newIndex).map((card, idx) => ({ ...card, order: idx }));
       setCards(newCards);
       // Persist new order in backend
       for (const card of newCards) {
         await updateCardOrder(card.id, card.order);
       }
-    }
   };
 
   return (
@@ -256,4 +257,4 @@ export const KpiGrid: React.FC = () => {
   );
 };
 
-export default KpiGrid; 
+export default KpiGrid;

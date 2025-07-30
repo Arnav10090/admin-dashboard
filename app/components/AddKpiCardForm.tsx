@@ -38,7 +38,7 @@ const AddKpiCardForm: React.FC<AddKpiCardFormProps> = ({ onCardAdded, onClose })
       const displayedCards = await displayedCardsResponse.json();
       console.log('2. Fetched displayed cards:', displayedCards);
       
-      const displayedCardIds = displayedCards.map((card: any) => card.id);
+      const displayedCardIds = displayedCards.map((card: KpiCard) => card.id);
       console.log('3. Extracted displayed card IDs:', displayedCardIds);
       
       // Then get available cards, excluding the ones already displayed
@@ -134,7 +134,7 @@ const AddKpiCardForm: React.FC<AddKpiCardFormProps> = ({ onCardAdded, onClose })
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -169,7 +169,7 @@ const AddKpiCardForm: React.FC<AddKpiCardFormProps> = ({ onCardAdded, onClose })
             id="cardSelect"
             value={selectedCardId}
             onChange={handleCardSelect}
-            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 pr-10 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-black"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 pr-10 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-black cursor-pointer"
             required
             disabled={loading}
           >
@@ -211,14 +211,14 @@ const AddKpiCardForm: React.FC<AddKpiCardFormProps> = ({ onCardAdded, onClose })
           type="button"
           onClick={onClose}
           disabled={loading}
-          className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={loading}
-          className="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+          className="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center cursor-pointer"
         >
           {loading ? (
             <>

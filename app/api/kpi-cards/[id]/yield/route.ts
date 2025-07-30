@@ -25,6 +25,7 @@ export async function GET(req: NextRequest, context: { params: Promise<{ id: str
       yieldPercent,
     });
   } catch (error) {
+    console.error('Failed to calculate yield:', error);
     return NextResponse.json({ error: 'Failed to calculate yield.' }, { status: 500 });
   }
 } 

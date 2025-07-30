@@ -76,7 +76,7 @@ const KpiCard: React.FC<KpiCardProps> = ({
       <div className="absolute top-3 right-3 flex gap-1">
         {onEdit && (
           <button
-            className="text-gray-400 hover:text-blue-600 z-[100] bg-white/80 rounded-full p-1 shadow hover:scale-110 transition-transform"
+            className="text-gray-400 hover:text-blue-600 z-[100] bg-white/80 rounded-full p-1 shadow hover:scale-110 transition-transform cursor-pointer"
             title="Edit Card"
             onClick={e => {
               e.preventDefault();
@@ -92,7 +92,7 @@ const KpiCard: React.FC<KpiCardProps> = ({
         )}
         {onDelete && (
           <button
-            className="text-gray-400 hover:text-red-600 z-[100] bg-white/80 rounded-full p-1 shadow hover:scale-110 transition-transform"
+            className="text-gray-400 hover:text-red-600 z-[100] bg-white/80 rounded-full p-1 shadow hover:scale-110 transition-transform cursor-pointer"
             title="Delete Card"
             onClick={e => {
               e.preventDefault();

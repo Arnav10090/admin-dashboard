@@ -8,7 +8,7 @@ interface FabAddCardProps {
 
 const FabAddCard: React.FC<FabAddCardProps> = ({ onClick }) => (
   <motion.button
-    className="fixed bottom-8 right-8 z-40 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg w-16 h-16 flex items-center justify-center text-3xl font-bold focus:outline-none focus:ring-4 focus:ring-blue-300 group"
+    className="fixed bottom-8 right-8 z-40 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg w-16 h-16 flex items-center justify-center text-3xl font-bold focus:outline-none focus:ring-4 focus:ring-blue-300 group cursor-pointer"
     whileHover={{ scale: 1.08 }}
     whileTap={{ scale: 0.96 }}
     onClick={onClick}

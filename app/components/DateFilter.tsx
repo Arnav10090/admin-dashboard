@@ -24,7 +24,7 @@ const DateFilter: React.FC<DateFilterProps> = ({ onFilterChange, currentFilter =
           key={filter}
           type="button"
           onClick={(e) => handleFilterClick(e, filter)}
-          className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
+          className={`px-3 py-1 text-sm font-medium rounded-md transition-colors cursor-pointer ${
             currentFilter === filter
               ? 'bg-white shadow-sm text-blue-600'
               : 'text-gray-600 hover:bg-gray-200'

@@ -4,21 +4,32 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // GET: Fetch a single KPI card by ID
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
+    const params = await context.params;
+    const { id } = params;
+    
     const card = await prisma.kpiCard.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
     if (!card) return NextResponse.json({ error: 'KPI card not found.' }, { status: 404 });
     return NextResponse.json(card);
-  } catch (error) {
+  } catch (err) {
+    console.error('Failed to fetch KPI card:', err);
     return NextResponse.json({ error: 'Failed to fetch KPI card.' }, { status: 500 });
   }
 }
 
 // PATCH: Update a KPI card's visibility by ID
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
+    const params = await context.params;
     const data = await req.json();
     
     // First, check if the card exists
@@ -52,13 +63,18 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 }
 
 // PUT: Update a KPI card by ID
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
+    const params = await context.params;
+    const { id } = params;
     const data = await req.json();
     
     // First, get the current card to preserve existing values
     const currentCard = await prisma.kpiCard.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!currentCard) {
@@ -94,7 +110,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     // Update the card
     const card = await prisma.kpiCard.update({
-      where: { id: params.id },
+      where: { id },
       data: updateData,
     });
 
@@ -113,7 +129,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       if (tonsCard) {
         // Calculate the new values (10x the coils/hr values)
         const multiplier = 10; // 1 coil = 10 tons
-        const updatedTonsCard = await prisma.kpiCard.update({
+        await prisma.kpiCard.update({
           where: { id: tonsCard.id },
           data: {
             benchmark: data.benchmark !== undefined ? data.benchmark * multiplier : undefined,
@@ -136,7 +152,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       if (coilsCard) {
         // Calculate the new values (1/10th of the tons/hr values)
         const divisor = 10; // 10 tons = 1 coil
-        const updatedCoilsCard = await prisma.kpiCard.update({
+        await prisma.kpiCard.update({
           where: { id: coilsCard.id },
           data: {
             benchmark: data.benchmark !== undefined ? Math.round((data.benchmark / divisor) * 100) / 100 : undefined,
@@ -162,13 +178,17 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
 // DELETE: Hide a KPI card from the dashboard (soft delete)
 export async function DELETE(
-  req: NextRequest, 
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const params = await context.params;
+    const { id } = params;
+    
     // First check if the card exists
     const card = await prisma.kpiCard.findUnique({
-      where: { id: params.id },
+      where: { id },
+      select: { id: true }
     });
     
     if (!card) {
@@ -180,7 +200,7 @@ export async function DELETE(
     
     // Update the card to hide it from the dashboard
     await prisma.kpiCard.update({ 
-      where: { id: params.id },
+      where: { id },
       data: { isVisible: false }
     });
     

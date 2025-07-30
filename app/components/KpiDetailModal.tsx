@@ -35,7 +35,7 @@ const KpiDetailModal: React.FC<KpiDetailModalProps> = ({ open, onClose, card }) 
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm cursor-pointer"
         initial="hidden"
         animate="visible"
         exit="exit"
@@ -53,7 +53,7 @@ const KpiDetailModal: React.FC<KpiDetailModalProps> = ({ open, onClose, card }) 
           onClick={e => e.stopPropagation()}
         >
           <button
-            className="absolute top-4 right-4 text-gray-400 hover:text-red-600 text-xl font-bold"
+            className="absolute top-4 right-4 text-gray-400 hover:text-red-600 text-xl font-bold cursor-pointer"
             onClick={onClose}
             aria-label="Close"
           >
