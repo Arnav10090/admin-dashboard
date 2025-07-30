@@ -7,6 +7,9 @@ const prisma = new PrismaClient();
 export async function GET() {
   try {
     const cards = await prisma.kpiCard.findMany({
+      where: {
+        isVisible: true
+      },
       orderBy: { 
         order: 'asc' 
       }

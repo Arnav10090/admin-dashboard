@@ -198,11 +198,37 @@ export async function DELETE(
       );
     }
     
+    // Get the current order of the card being hidden
+    const currentCard = await prisma.kpiCard.findUnique({
+      where: { id },
+      select: { order: true }
+    });
+
     // Update the card to hide it from the dashboard
     await prisma.kpiCard.update({ 
       where: { id },
-      data: { isVisible: false }
+      data: { 
+        isVisible: false,
+        order: 999999 // Move to end of list when hidden
+      }
     });
+
+    // Reorder remaining visible cards
+    const visibleCards = await prisma.kpiCard.findMany({
+      where: {
+        isVisible: true,
+        NOT: { id }
+      },
+      orderBy: { order: 'asc' }
+    });
+
+    // Update order of remaining cards
+    for (let i = 0; i < visibleCards.length; i++) {
+      await prisma.kpiCard.update({
+        where: { id: visibleCards[i].id },
+        data: { order: i }
+      });
+    }
     
     return NextResponse.json({ 
       message: 'KPI card hidden from dashboard successfully.' 
