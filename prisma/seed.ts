@@ -43,7 +43,7 @@ const predefinedCards = [
     achieved: 1.8,
     order: 4,
     isDefault: false,
-    isVisible: false
+    isVisible: true
   },
   {
     name: 'OEE (Overall Equipment Effectiveness)',
@@ -53,7 +53,7 @@ const predefinedCards = [
     achieved: 82.5,
     order: 5,
     isDefault: false,
-    isVisible: false
+    isVisible: true
   },
   {
     name: 'Downtime %',
@@ -63,7 +63,7 @@ const predefinedCards = [
     achieved: 4.2,
     order: 6,
     isDefault: false,
-    isVisible: false
+    isVisible: true
   },
   {
     name: 'Maintenance Response Time',
@@ -73,7 +73,7 @@ const predefinedCards = [
     achieved: 25,
     order: 7,
     isDefault: false,
-    isVisible: false
+    isVisible: true
   },
   {
     name: 'Safety Incidents',
@@ -83,7 +83,7 @@ const predefinedCards = [
     achieved: 0,
     order: 8,
     isDefault: false,
-    isVisible: false
+    isVisible: true
   },
 ];
 
