@@ -39,13 +39,21 @@ interface KpiCardData {
 const fetchKpiCards = async (): Promise<KpiCardData[]> => {
   // For testing, we'll use a test user ID
   const userId = 'test-user-id';
-  const res = await fetch(`/api/kpi-cards?userId=${userId}`);
-  if (!res.ok) {
-    const errorText = await res.text();
-    console.error('Error fetching KPI cards:', res.status, errorText);
-    throw new Error('Failed to fetch KPI cards');
+  try {
+    console.log('Fetching KPI cards...');
+    const res = await fetch(`/api/kpi-cards?userId=${userId}`);
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error('Error fetching KPI cards:', res.status, errorText);
+      throw new Error('Failed to fetch KPI cards');
+    }
+    const data = await res.json();
+    console.log('Fetched KPI cards:', data);
+    return data;
+  } catch (error) {
+    console.error('Error in fetchKpiCards:', error);
+    throw error;
   }
-  return res.json();
 };
 
 const updateCardOrder = async (id: string, order: number) => {

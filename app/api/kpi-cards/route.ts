@@ -18,6 +18,8 @@ export async function GET() {
     return NextResponse.json(cards);
   } catch (error) {
     console.error('Error fetching KPI cards:', error);
+    console.error('Database URL:', process.env.DATABASE_URL);
+    console.error('Connection details:', { error });
     return NextResponse.json(
       { error: 'Failed to fetch KPI cards.' }, 
       { status: 500 }

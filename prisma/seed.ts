@@ -52,7 +52,6 @@ const predefinedCards = [
     benchmark: 85,
     achieved: 82.5,
     order: 5,
-    timeFrame: 'day',
     isDefault: false,
     isVisible: false
   },
@@ -63,7 +62,6 @@ const predefinedCards = [
     benchmark: 5,
     achieved: 4.2,
     order: 6,
-    timeFrame: 'shift',
     isDefault: false,
     isVisible: false
   },
@@ -74,7 +72,6 @@ const predefinedCards = [
     benchmark: 30,
     achieved: 25,
     order: 7,
-    timeFrame: 'hour',
     isDefault: false,
     isVisible: false
   },
@@ -85,56 +82,30 @@ const predefinedCards = [
     benchmark: 0,
     achieved: 0,
     order: 8,
-    timeFrame: 'month',
     isDefault: false,
     isVisible: false
   },
 ];
 
 async function main() {
-  console.log('Seeding additional predefined KPI cards...');
+  console.log('Seeding KPI cards...');
   
-  // Get all existing card names to avoid duplicates
-  const existingCards = await prisma.kpiCard.findMany();
-  const existingCardMap = new Map(existingCards.map(card => [card.name, card]));
-  
-  let createdCount = 0;
-  let updatedCount = 0;
-  
-  // Process all predefined cards
+  // Process all predefined cards directly without checking for duplicates
   for (const cardData of predefinedCards) {
-    if (existingCardMap.has(cardData.name)) {
-      // Update existing card to ensure it has the latest fields
-      await prisma.kpiCard.updateMany({
-        where: { name: cardData.name },
-        data: {
-          ...cardData,
-          date: new Date(),
-          isVisible: true // Ensure isVisible is set to true for existing cards
-        },
-      });
-      updatedCount++;
-      console.log(`Updated existing card: ${cardData.name}`);
-    } else {
-      // Create new card
+    try {
       await prisma.kpiCard.create({
         data: {
           ...cardData,
           date: new Date(),
-          isVisible: true
         },
       });
-      createdCount++;
-      console.log(`Added new card: ${cardData.name}`);
+      console.log(`Added card: ${cardData.name}`);
+    } catch (error) {
+      console.error(`Error adding card ${cardData.name}:`, error);
     }
   }
   
-  if (createdCount === 0 && updatedCount === 0) {
-    console.log('No changes needed - all cards are up to date.');
-    return;
-  }
-  
-  console.log('Successfully seeded predefined KPI cards');
+  console.log('Successfully seeded KPI cards');
 }
 
 main()
