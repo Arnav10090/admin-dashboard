@@ -2,6 +2,10 @@
 
 A modern, interactive KPI (Key Performance Indicator) dashboard built with Next.js, TypeScript, and Tailwind CSS. This application allows users to track and visualize various performance metrics with an intuitive drag-and-drop interface.
 
+## Live Demo
+
+Check out the live deployment at: [KPI Dashboard](https://admin-dashboard-amber-eight-47.vercel.app/)
+
 ## Features
 
 - 📊 Interactive KPI cards with real-time updates
