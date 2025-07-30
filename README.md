@@ -41,7 +41,6 @@ Create a `.env` file in the root directory and add the following variables:
 
 ```env
 DATABASE_URL="mysql://username:password@localhost:3306/kpi_dashboard?schema=public"
-NEXT_PUBLIC_API_URL=http://localhost:3000
 ```
 
 Replace `username` and `password` with your MySQL credentials.
